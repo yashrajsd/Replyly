@@ -1,31 +1,60 @@
-import { SIDEBAR_MENU } from '@/constants/menu'
+'use client'
 import { usePath } from '@/hooks/user-nav'
-import { cn } from '@/lib/utils'
-import Link from 'next/link'
+import { LogoSmall } from '../../../svg/logo-small'
 import React from 'react'
+import Items from './items'
 
 type Props = {
   slug: string
 }
 
-const Items = ({  slug }: Props) => {
+const Sidebar = ({ slug }: Props) => {
   const { page } = usePath()
-  return SIDEBAR_MENU.map((item) => (
-    <Link
-      key={item.id}
-      href={`/dashboard/${slug}/${item.label === 'home' ? '/' : item.label}`}
-      className={cn(
-        'capitalize flex gap-x-2 rounded-full p-3',
-        page === item.label && 'bg-[#0f0f0f]',
-        page === slug && item.label === 'home'
-          ? 'bg-[#0f0f0f]'
-          : 'text-[#9B9CA0]'
-      )}
+
+  return (
+    <div
+      className="w-[250px] 
+    border-[1px]
+    radial 
+    fixed 
+    left-0 
+    lg:inline-block
+    border-[#545454] 
+    bg-gradient-to-b from-[#768BDD] 
+    via-[#171717]
+     to-[#768BDD] 
+     hidden 
+     bottom-0 
+     top-0 
+     m-3 
+     rounded-3xl 
+     overflow-hidden"
     >
-      {item.icon}
-      {item.label}
-    </Link>
-  ))
+      <div
+        className="flex flex-col 
+      gap-y-5
+       w-full 
+       h-full 
+       p-3 
+       bg-[#0e0e0e] 
+       bg-opacity-90 
+       bg-clip-padding 
+       backdrop-filter 
+       backdrop--blur__safari 
+       backdrop-blur-3xl"
+      >
+        <div className="flex gap-x-2 items-center p-5 justify-center">
+          <LogoSmall />
+        </div>
+        <div className="flex flex-col py-3">
+          <Items
+            page={page}
+            slug={slug}
+          />
+        </div>
+      </div>
+    </div>
+  )
 }
 
-export default Items
+export default Sidebar
